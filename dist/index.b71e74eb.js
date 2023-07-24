@@ -539,6 +539,12 @@ const user = new (0, _user.User)({
 });
 console.log(user.get("name"));
 console.log(user.get("age"));
+user.set({
+    name: "Kevin",
+    age: 51
+});
+console.log(user.get("name"));
+console.log(user.get("age"));
 
 },{"./models/User":"4rcHn"}],"4rcHn":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -550,8 +556,13 @@ class User {
         this.name = data.name;
         this.age = data.age;
     }
+    // Method for accessing properties within a user instance
     get(propName) {
         return this.data[propName];
+    }
+    // Method for updating properties within a user instance
+    set(update) {
+        Object.assign(this.data, update);
     }
 }
 

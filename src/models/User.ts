@@ -11,8 +11,13 @@ export class User {
         this.age = data.age;
     }
       
-
+    // Method for accessing properties within a user instance
     get(propName: string): (number | string) {
         return this.data[propName];
+    }
+
+    // Method for updating properties within a user instance
+    set(update: UserProps): void {
+        Object.assign(this.data, update);
     }
 }
