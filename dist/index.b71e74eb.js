@@ -540,11 +540,22 @@ const user = new (0, _user.User)({
 console.log(user.get("name"));
 console.log(user.get("age"));
 user.set({
-    name: "Kevin",
-    age: 51
+    age: 20
 });
 console.log(user.get("name"));
 console.log(user.get("age"));
+user.on("change", ()=>{
+    console.log("Change #1");
+});
+user.on("change", ()=>{
+    console.log("Change #2");
+});
+user.on("save", ()=>{
+    console.log("Changes Saved");
+});
+console.log(user);
+user.trigger("change");
+user.trigger("save");
 
 },{"./models/User":"4rcHn"}],"4rcHn":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -553,8 +564,8 @@ parcelHelpers.export(exports, "User", ()=>User);
 class User {
     constructor(data){
         this.data = data;
-        this.name = data.name;
-        this.age = data.age;
+        this.// Constructing the class properties
+        events = {};
     }
     // Method for accessing properties within a user instance
     get(propName) {
@@ -563,6 +574,25 @@ class User {
     // Method for updating properties within a user instance
     set(update) {
         Object.assign(this.data, update);
+    }
+    // Method for listening for events
+    on(eventName, callback) {
+        // Initialising the handlers array
+        const handlers = this.events[eventName] || [];
+        // Pushing the callback function into the handlers array
+        handlers.push(callback);
+        // Assigning the handlers array to the events object
+        this.events[eventName] = handlers;
+    }
+    trigger(eventName) {
+        // Checking if the event exists
+        const handlers = this.events[eventName];
+        // If the event doesn't exist, return
+        if (!handlers || handlers.length === 0) return;
+        // If the event does exist, loop through the handlers and execute them
+        handlers.forEach((callback)=>{
+            callback();
+        });
     }
 }
 
