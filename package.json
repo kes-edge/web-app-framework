@@ -1,0 +1,22 @@
+{
+  "name": "web-app-framework",
+  "version": "1.0.0",
+  "description": "practice package for creating a web application framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kes-edge/web-app-framework.git"
+  },
+  "author": "Kieran Edge",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kes-edge/web-app-framework/issues"
+  },
+  "homepage": "https://github.com/kes-edge/web-app-framework#readme",
+  "dependencies": {
+    "parcel-bundler": "^1.12.5"
+  }
+}
