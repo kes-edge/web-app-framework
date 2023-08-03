@@ -1,4 +1,7 @@
+import axios, { AxiosResponse } from "axios";
+
 interface UserProps {
+    id?: number;
     name?: string;
     age?: number;
 }
@@ -19,7 +22,7 @@ export class User {
     // Method for updating properties within a user instance
     set(update: UserProps): void {
         Object.assign(this.data, update);
-    }ßß
+    }
 
     // Method for listening for events
     on(eventName: string, callback: Callback): void {
@@ -46,5 +49,13 @@ export class User {
         handlers.forEach(callback => {
             callback();
         });
+    }
+
+    // Method for fetching user data from JSON server
+    fetch(): void {
+        axios.get(`http://localhost:3000/users/${this.get("id")}`)
+            .then((response: AxiosResponse): void => {
+                this.set(response.data);
+            });
     }
 }
