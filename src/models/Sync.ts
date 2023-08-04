@@ -2,7 +2,7 @@ import axios, { AxiosPromise } from "axios";
 import { UserProps } from "./User";
 
 interface HasId {
-    id: number;
+    id?: number;
 }
 
 export class Sync<T extends HasId> {
@@ -19,8 +19,8 @@ export class Sync<T extends HasId> {
         const id = data.id;
         
         // Saving the data to a specific user if the user has an id
-        if (data.id){
-            return axios.put(`${this.rootURL}/${data.id}`, data);
+        if (id){
+            return axios.put(`${this.rootURL}/${id}`, data);
         } else {
             return axios.post(this.rootURL, data);
         }
