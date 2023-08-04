@@ -1,4 +1,4 @@
-import axios, { AxiosPromise, AxiosResponse } from "axios";
+import axios, { AxiosPromise } from "axios";
 import { UserProps } from "./User";
 
 export class Sync {
@@ -11,14 +11,14 @@ export class Sync {
     }
 
     // Method for saving user data to JSON server
-    save(data: UserProps): void {
+    save(data: UserProps): AxiosPromise {
         const id = data.id;
         
         // Saving the data to a specific user if the user has an id
         if (data.id){
-            axios.put(`${this.rootURL}/${this.id}`, data);
+            return axios.put(`${this.rootURL}/${data.id}`, data);
         } else {
-            axios.post(this.rootURL, data);
+            return axios.post(this.rootURL, data);
         }
     }
 }
