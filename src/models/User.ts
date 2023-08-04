@@ -7,11 +7,13 @@ export interface UserProps {
     age?: number;
 }
 
+const rootURL = 'http://localhost:3000/users';
+
 export class User {
     // Creating an instance of the Eventing and Syncing classes
     public events: Eventing = new Eventing();
-    public sync: Sync = new Sync();
-    
+    public sync: Sync<UserProps> = new Sync<UserProps>(rootURL);
+
     // Constructing the class properties
     constructor(private data: UserProps) {}
       

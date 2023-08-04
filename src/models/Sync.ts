@@ -1,7 +1,11 @@
 import axios, { AxiosPromise } from "axios";
 import { UserProps } from "./User";
 
-export class Sync {
+interface HasId {
+    id: number;
+}
+
+export class Sync<T extends HasId> {
     // Constructing the id to be used
     constructor(public rootURL: string) {}
     
@@ -11,7 +15,7 @@ export class Sync {
     }
 
     // Method for saving user data to JSON server
-    save(data: UserProps): AxiosPromise {
+    save(data: T): AxiosPromise {
         const id = data.id;
         
         // Saving the data to a specific user if the user has an id
