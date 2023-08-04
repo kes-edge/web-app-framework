@@ -1156,7 +1156,7 @@ module.exports = Array.isArray || function (arr) {
   return toString.call(arr) == '[object Array]';
 };
 
-},{}],"node_modules/buffer/index.js":[function(require,module,exports) {
+},{}],"node_modules/node-libs-browser/node_modules/buffer/index.js":[function(require,module,exports) {
 
 var global = arguments[3];
 /*!
@@ -2949,7 +2949,7 @@ function isnan (val) {
   return val !== val // eslint-disable-line no-self-compare
 }
 
-},{"base64-js":"node_modules/base64-js/index.js","ieee754":"node_modules/ieee754/index.js","isarray":"node_modules/isarray/index.js","buffer":"node_modules/buffer/index.js"}],"node_modules/axios/lib/helpers/toFormData.js":[function(require,module,exports) {
+},{"base64-js":"node_modules/base64-js/index.js","ieee754":"node_modules/ieee754/index.js","isarray":"node_modules/isarray/index.js","buffer":"node_modules/node-libs-browser/node_modules/buffer/index.js"}],"node_modules/axios/lib/helpers/toFormData.js":[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 'use strict';
 
@@ -3144,7 +3144,7 @@ function toFormData(obj, formData, options) {
 }
 var _default = toFormData;
 exports.default = _default;
-},{"../utils.js":"node_modules/axios/lib/utils.js","../core/AxiosError.js":"node_modules/axios/lib/core/AxiosError.js","../platform/node/classes/FormData.js":"node_modules/axios/lib/helpers/null.js","buffer":"node_modules/buffer/index.js"}],"node_modules/axios/lib/helpers/AxiosURLSearchParams.js":[function(require,module,exports) {
+},{"../utils.js":"node_modules/axios/lib/utils.js","../core/AxiosError.js":"node_modules/axios/lib/core/AxiosError.js","../platform/node/classes/FormData.js":"node_modules/axios/lib/helpers/null.js","buffer":"node_modules/node-libs-browser/node_modules/buffer/index.js"}],"node_modules/axios/lib/helpers/AxiosURLSearchParams.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5421,7 +5421,7 @@ exports.isCancel = isCancel;
 exports.CanceledError = CanceledError;
 exports.AxiosError = AxiosError;
 exports.Axios = Axios;
-},{"./lib/axios.js":"node_modules/axios/lib/axios.js"}],"src/index.ts":[function(require,module,exports) {
+},{"./lib/axios.js":"node_modules/axios/lib/axios.js"}],"src/models/User.ts":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -5432,12 +5432,67 @@ var __importDefault = this && this.__importDefault || function (mod) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.User = void 0;
 var axios_1 = __importDefault(require("axios"));
-axios_1.default.post("http://localhost:3000/users", {
-  name: "Kieran Edge",
-  age: 29
+var User = /** @class */function () {
+  function User(data) {
+    this.data = data;
+    // Constructing the class properties
+    this.events = {};
+  }
+  // Method for accessing properties within a user instance
+  User.prototype.get = function (propName) {
+    return this.data[propName];
+  };
+  // Method for updating properties within a user instance
+  User.prototype.set = function (update) {
+    Object.assign(this.data, update);
+  };
+  // Method for listening for events
+  User.prototype.on = function (eventName, callback) {
+    // Initialising the handlers array
+    var handlers = this.events[eventName] || [];
+    // Pushing the callback function into the handlers array
+    handlers.push(callback);
+    // Assigning the handlers array to the events object
+    this.events[eventName] = handlers;
+  };
+  User.prototype.trigger = function (eventName) {
+    // Checking if the event exists
+    var handlers = this.events[eventName];
+    // If the event doesn't exist, return
+    if (!handlers || handlers.length === 0) {
+      return;
+    }
+    // If the event does exist, loop through the handlers and execute them
+    handlers.forEach(function (callback) {
+      callback();
+    });
+  };
+  // Method for fetching user data from JSON server
+  User.prototype.fetch = function () {
+    var _this = this;
+    axios_1.default.get("http://localhost:3000/users/".concat(this.get("id"))).then(function (response) {
+      _this.set(response.data);
+    });
+  };
+  return User;
+}();
+exports.User = User;
+},{"axios":"node_modules/axios/index.js"}],"src/index.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
-},{"axios":"node_modules/axios/index.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+var User_1 = require("./models/User");
+console.log("hi");
+var user = new User_1.User({
+  id: 1
+});
+user.fetch();
+console.log("hi");
+},{"./models/User":"src/models/User.ts"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -5462,7 +5517,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51815" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62769" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
