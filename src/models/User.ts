@@ -1,3 +1,4 @@
+import { Attributes } from "./Attributes";
 import { Eventing } from "./Eventing";
 import { Sync } from "./Sync";
 
@@ -13,8 +14,21 @@ export class User {
     // Creating an instance of the Eventing and Syncing classes
     public events: Eventing = new Eventing();
     public sync: Sync<UserProps> = new Sync<UserProps>(rootURL);
+    public attributes: Attributes<UserProps>;
 
-    // Constructing the class properties
-    constructor(private data: UserProps) {}
-      
+    constructor(attrs: UserProps) {
+        this.attributes = new Attributes<UserProps>(attrs);
+    }
+
+    get on() {
+        return this.events.on;
+    }
+
+    get trigger() {
+        return this.events.trigger;
+    }
+
+    get get() {
+        return this.attributes.get;
+    }
 }

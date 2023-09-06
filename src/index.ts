@@ -1,5 +1,5 @@
 import { User } from "./models/User";
 
-const user = new User({ id: 2 });
+const user = new User({ name: 'Kieran Edge', age: 29});
 
-setTimeout(() => {console.log(user)}, 4000);
+user.on;
