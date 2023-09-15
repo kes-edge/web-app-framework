@@ -1,5 +1,5 @@
 // Interface for the callback function
-type Callback = () => {};
+type Callback = () => void;
 
 // Class for handling events
 export class Eventing {
